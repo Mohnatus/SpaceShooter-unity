@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidEmitterScript : MonoBehaviour
+public class AsteroidEmitter : MonoBehaviour
 {
 
     public float minDelay;
@@ -13,13 +13,13 @@ public class AsteroidEmitterScript : MonoBehaviour
     private float nextSpawn;
     private float asteroidCount = 1;
 
-    // Update is called once per frame
+    public float maxAsteroidWave;
+
     void Update()
     {
         if (Time.time > nextSpawn)
         {
             float maxAsteroid = Random.Range(1, asteroidCount);
-
             for (int i = 0; i < maxAsteroid; i++)
             {
                 nextSpawn = Time.time + Random.Range(minDelay, maxDelay);
@@ -35,7 +35,8 @@ public class AsteroidEmitterScript : MonoBehaviour
                 Instantiate(asteroid, startPosition, Quaternion.identity);
             }
 
-            asteroidCount += 0.3f;
+            asteroidCount = Mathf.Min(asteroidCount + 0.3f, maxAsteroidWave);
+            
         }
     }
 }

@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidScript : MonoBehaviour
+public class Asteroid : MonoBehaviour
 {
     public float rotationSpeed;
     public float minSpeed;
     public float maxSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
         Rigidbody asteroid = GetComponent<Rigidbody>();

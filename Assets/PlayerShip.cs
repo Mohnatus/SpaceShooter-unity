@@ -8,26 +8,19 @@ public class Boundary
     public float xMin, xMax, zMin, zMax;
 }
 
-public class PlayerShipScript : MonoBehaviour
+public class PlayerShip : MonoBehaviour
 {
 
     public float speed;
     public float tilt; // наклон
     public Boundary boundary;
 
-    public GameObject lazerShot;
-    public GameObject lazerGun;
+    public GameObject[] lazerGuns;
+
     public float shotDelay;
-
     private float nextShot; // время следующего выстрела
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+
     void Update()
     {
         bool canShoot = Time.time > nextShot;
@@ -35,7 +28,10 @@ public class PlayerShipScript : MonoBehaviour
         if (Input.GetButton("Fire1") && canShoot)
         {
             nextShot = Time.time + shotDelay;
-            Instantiate(lazerShot, lazerGun.transform.position, Quaternion.identity);
+            for (int i = 0; i < lazerGuns.Length; i++)
+            {
+                lazerGuns[i].GetComponent<LaserGun>().Shot();
+            }
         }
     }
 
