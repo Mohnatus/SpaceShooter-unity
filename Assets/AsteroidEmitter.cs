@@ -8,12 +8,19 @@ public class AsteroidEmitter : MonoBehaviour
     public float minDelay;
     public float maxDelay;
 
-    public GameObject asteroid;
+    public GameObject[] asteroidTypes;
 
     private float nextSpawn;
     private float asteroidCount = 1;
 
     public float maxAsteroidWave;
+
+    GameObject GetRandomAsteroid()
+    {
+        int randomAsteroid = Random.Range(0, asteroidTypes.Length);
+        Debug.Log(randomAsteroid);
+        return asteroidTypes[randomAsteroid];
+    }
 
     void Update()
     {
@@ -31,6 +38,9 @@ public class AsteroidEmitter : MonoBehaviour
                     transform.position.y,
                     randomZPosition
                 );
+
+
+                GameObject asteroid = GetRandomAsteroid();
 
                 Instantiate(asteroid, startPosition, Quaternion.identity);
             }
