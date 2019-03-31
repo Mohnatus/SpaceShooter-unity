@@ -19,25 +19,27 @@ public class PlayerShip : MonoBehaviour
     public GameObject[] secondaryGuns;
 
     public float shotDelay;
-    private float nextShot; // время следующего выстрела
 
+    private float nextShotMain; 
+    private float nextShotSecondary; 
 
     void Update()
     {
-        bool canShoot = Time.time > nextShot;
+        bool canShootMain = Time.time > nextShotMain;
+        bool canShootSecondary = Time.time > nextShotSecondary;
 
-        if (Input.GetButton("Fire1") && canShoot)
+        if (Input.GetButton("Fire1") && canShootMain)
         {
-            nextShot = Time.time + shotDelay;
+            nextShotMain = Time.time + shotDelay;
             for (int i = 0; i < mainGuns.Length; i++)
             {
                 mainGuns[i].GetComponent<LaserGun>().Shot();
             }
         }
 
-        if (Input.GetButton("Fire2") && canShoot)
+        if (Input.GetButton("Fire2") && canShootSecondary)
         {
-            nextShot = Time.time + shotDelay;
+            nextShotSecondary = Time.time + shotDelay / 2;
             for (int i = 0; i < secondaryGuns.Length; i++)
             {
                 secondaryGuns[i].GetComponent<LaserGun>().Shot();
