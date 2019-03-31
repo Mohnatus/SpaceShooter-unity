@@ -15,7 +15,8 @@ public class PlayerShip : MonoBehaviour
     public float tilt; // наклон
     public Boundary boundary;
 
-    public GameObject[] lazerGuns;
+    public GameObject[] mainGuns;
+    public GameObject[] secondaryGuns;
 
     public float shotDelay;
     private float nextShot; // время следующего выстрела
@@ -28,9 +29,18 @@ public class PlayerShip : MonoBehaviour
         if (Input.GetButton("Fire1") && canShoot)
         {
             nextShot = Time.time + shotDelay;
-            for (int i = 0; i < lazerGuns.Length; i++)
+            for (int i = 0; i < mainGuns.Length; i++)
             {
-                lazerGuns[i].GetComponent<LaserGun>().Shot();
+                mainGuns[i].GetComponent<LaserGun>().Shot();
+            }
+        }
+
+        if (Input.GetButton("Fire2") && canShoot)
+        {
+            nextShot = Time.time + shotDelay;
+            for (int i = 0; i < secondaryGuns.Length; i++)
+            {
+                secondaryGuns[i].GetComponent<LaserGun>().Shot();
             }
         }
     }
